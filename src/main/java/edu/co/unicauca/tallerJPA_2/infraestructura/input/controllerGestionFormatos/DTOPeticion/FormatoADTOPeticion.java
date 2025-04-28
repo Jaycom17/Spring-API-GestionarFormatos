@@ -1,5 +1,4 @@
-package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta;
-
+package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -19,16 +18,14 @@ import lombok.Setter;
   property = "type"
 )
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = FormatoppADTORespuesta.class, name = "pp"),
-  @JsonSubTypes.Type(value = FormatotiADTORespuesta.class, name = "ti")
+  @JsonSubTypes.Type(value = FormatoppADTOPeticion.class, name = "pp"),
+  @JsonSubTypes.Type(value = FormatotiADTOPeticion.class, name = "ti")
 })
-public abstract class FormatoADTORespuesta {
-    private Integer idFormatoA;
+public abstract class FormatoADTOPeticion {
     private String titulo;
     private String objetivoGeneral;
     private String objetivosEspecificos;
     private String nombreEstudiante1;
 
-    private DocenteDTORespuesta objDocente;
-    private EstadoDTORespuesta objEstado;
+    private DocenteDTOPeticion objDocente;
 }
