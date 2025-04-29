@@ -1,0 +1,76 @@
+package edu.co.unicauca.tallerJPA_2.dominio.casosDeUso;
+
+import java.util.Date;
+import java.util.List;
+
+import edu.co.unicauca.tallerJPA_2.aplicacion.input.GestionarFormatoACUIntPort;
+import edu.co.unicauca.tallerJPA_2.aplicacion.output.FormateadorResultadosIntPort;
+import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarDocenteGatewayIntPort;
+import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarFormatoAGatewayIntPort;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoA;
+
+public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
+
+    private final GestionarFormatoAGatewayIntPort objGestionarFormatoAGateway;
+    private final GestionarDocenteGatewayIntPort objGestionarDocenteGateway;
+    private final FormateadorResultadosIntPort objFormatoResultados;
+
+    public GestionarFormatosACUAdapter(GestionarFormatoAGatewayIntPort objGestionarFormatoAGateway,
+            GestionarDocenteGatewayIntPort objGestionarDocenteGateway,
+            FormateadorResultadosIntPort objFormatoResultados) {
+        this.objGestionarFormatoAGateway = objGestionarFormatoAGateway;
+        this.objGestionarDocenteGateway = objGestionarDocenteGateway;
+        this.objFormatoResultados = objFormatoResultados;
+    }
+
+    @Override
+    public FormatoA crearFormatoA(FormatoA objFormatoA) {
+
+        FormatoA objRetornarFormatoA = null;
+
+        if (objGestionarFormatoAGateway.existeFormatoPorTitulo(objFormatoA.getTitulo())) {
+            this.objFormatoResultados.retornarRespuestaErrorEntidadExiste(
+                    "Error, ya existe un formato con el titulo: " + objFormatoA.getTitulo());
+        } else {
+            if (objFormatoA.getObjDocente().getIdDocente() == null) {
+                if (objGestionarDocenteGateway.existeDocentePorCorreo(objFormatoA.getObjDocente().getCorreo())) {
+                    this.objFormatoResultados
+                            .retornarRespuestaErrorEntidadExiste(
+                                    "Error, se encuentra en el sistema un docente con el correo: "
+                                            + objFormatoA.getObjDocente().getCorreo());
+                }
+            } else {
+                Docente objDocente = objGestionarDocenteGateway
+                        .obtenerDocentePorId(objFormatoA.getObjDocente().getIdDocente());
+
+                if (objDocente == null) {
+                    // TODO: crear metodo para entidad no existe
+                    this.objFormatoResultados
+                            .retornarRespuestaErrorEntidadExiste("Error, no existe un docente con ese ID");
+                } else {
+                    objFormatoA.setObjDocente(objDocente);
+                }
+            }
+        }
+
+        objFormatoA.setFechaCreacion(new Date());
+
+        objRetornarFormatoA = objGestionarFormatoAGateway.crearFormatoA(objFormatoA);
+
+        return objRetornarFormatoA;
+    }
+
+    @Override
+    public List<FormatoA> listarPorDocente(Integer idDocente) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorDocente'");
+    }
+
+    @Override
+    public List<FormatoA> listarPorTituloEntreFechas(String titulo, Date fechaInicio, Date fechaFin) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorTituloEntreFechas'");
+    }
+
+}

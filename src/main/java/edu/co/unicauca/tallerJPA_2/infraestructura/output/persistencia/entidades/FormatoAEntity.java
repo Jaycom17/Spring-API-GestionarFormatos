@@ -1,6 +1,7 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -38,6 +39,8 @@ public abstract class FormatoAEntity {
     private String objetivosEspecificos;
     @Column(name = "nombre_estudiante1", length = 100)
     private String nombreEstudiante1;
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.MERGE })
     @JoinColumn(name = "idfkDocente")

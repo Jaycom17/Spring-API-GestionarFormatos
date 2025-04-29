@@ -13,5 +13,5 @@ public interface DocenteRepository extends JpaRepository<DocenteEntity, Integer>
     List<DocenteEntity> findByNombreGrupoAndApellidosDocenteStartingWithIgnoreCase(String nombreGrupo, String patronBusqueda);
 
     @Query(value = "SELECT COUNT(*) > 0 FROM docentes WHERE correo = :correo", nativeQuery = true)
-    boolean existsByCorreo(@Param("correo") String correo);
+    Integer existsByCorreo(@Param("correo") String correo);
 }

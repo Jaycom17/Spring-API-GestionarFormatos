@@ -8,4 +8,5 @@ public interface GestionarDocenteGatewayIntPort {
     boolean existeDocentePorCorreo(String correo);
     boolean existeDocentePorId(Integer idDocente);public List<Docente> listarDocentesPorGrupoPatron(String nombreGrupo, String patronBusqueda);
     List<Docente> listarMiembrosComite();
+    Docente obtenerDocentePorId(Integer idDocente);
 }

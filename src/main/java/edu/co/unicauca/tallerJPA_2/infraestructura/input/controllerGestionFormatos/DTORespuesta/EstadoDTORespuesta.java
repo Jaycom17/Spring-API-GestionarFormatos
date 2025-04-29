@@ -15,6 +15,4 @@ public class EstadoDTORespuesta {
     private Integer idEstado;
     private String estadoActual;
     private Date fechaRegistroEstado;
-
-    private FormatoADTORespuesta objFormatoA;
 }

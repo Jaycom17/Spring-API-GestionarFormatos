@@ -12,17 +12,17 @@ import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades
 public interface FormatoARepository extends JpaRepository<FormatoAEntity, Integer> {
     // No additional methods are needed for basic CRUD operations
 
-    @Query("SELECT fa, e, d FROM FormatosA fa " +
-           "JOIN fa.estado e " +
-           "JOIN fa.docentes d " +
-           "WHERE fa.titulo = :titulo " +
-           "AND fa.fechaCreacion BETWEEN :fechaInicio AND :fechaFin")
+    @Query("SELECT fa, e, d FROM FormatoAEntity fa " +
+       "JOIN fa.objEstado e " +
+       "JOIN fa.objDocente d " +
+       "WHERE fa.titulo = :titulo " +
+       "AND fa.fechaCreacion BETWEEN :fechaInicio AND :fechaFin")
     List<Object[]> findFormatoAWithEstadoAndDocentes(
         @Param("titulo") String titulo,
         @Param("fechaInicio") LocalDate fechaInicio,
         @Param("fechaFin") LocalDate fechaFin
     );
 
-    @Query(value = "SELECT COUNT(*) > 0 FROM formatosA WHERE titulo = :titulo", nativeQuery = true)
-    boolean existsByTitulo(@Param("titulo") String titulo);
+    @Query(value = "SELECT COUNT(*) > 0 FROM formatosA WHERE LOWER(titulo) = LOWER(:titulo)", nativeQuery = true)
+    Integer existsByTitulo(@Param("titulo") String titulo);
 }

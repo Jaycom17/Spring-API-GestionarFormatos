@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DocenteDTOPeticion {
+    private Integer idDocente;
     private String nombresDocente;
     private String apellidosDocente;
     private String nombreGrupo;

@@ -27,8 +27,7 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     @Override
     @Transactional(readOnly = true)
     public boolean existeDocentePorCorreo(String correo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existeDocentePorCorreo'");
+        return objDocenteRepository.existsByCorreo(correo) != 0;
     }
 
     @Override
@@ -54,4 +53,17 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
         throw new UnsupportedOperationException("Unimplemented method 'listarMiembrosComite'");
     }
     
+    @Override
+    @Transactional(readOnly = true)
+    public Docente obtenerDocentePorId(Integer idDocente) {
+        DocenteEntity docenteEntity = objDocenteRepository.findById(idDocente).orElse(null);
+
+        Docente objDocente = null;
+
+        if(docenteEntity != null){
+            objDocente = docenteModelMapper.map(docenteEntity, Docente.class);
+        }
+
+        return objDocente;
+    }
 }

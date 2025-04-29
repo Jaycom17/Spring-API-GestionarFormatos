@@ -6,10 +6,15 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class DocenteMapperInfraestructuraDominio {
+public class MapperInfraestructuraDominio {
 
     @Bean("DocenteMapperInfraestructuraDominio")
     public ModelMapper crearDocenteMapperInfraestructuraDominio(){
+        return new ModelMapper();
+    }
+
+    @Bean("FormatoAMapperInfraestructuraDominio")
+    public ModelMapper crearFormatoAMapperInfraestructuraDominio(){
         return new ModelMapper();
     }
 }
