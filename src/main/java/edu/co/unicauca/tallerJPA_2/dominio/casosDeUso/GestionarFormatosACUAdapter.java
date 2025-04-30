@@ -7,7 +7,6 @@ import edu.co.unicauca.tallerJPA_2.aplicacion.input.GestionarFormatoACUIntPort;
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.FormateadorResultadosIntPort;
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarDocenteGatewayIntPort;
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarFormatoAGatewayIntPort;
-import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoA;
 
 public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
@@ -41,15 +40,10 @@ public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
                                             + objFormatoA.getObjDocente().getCorreo());
                 }
             } else {
-                Docente objDocente = objGestionarDocenteGateway
-                        .obtenerDocentePorId(objFormatoA.getObjDocente().getIdDocente());
 
-                if (objDocente == null) {
-                    // TODO: crear metodo para entidad no existe
+                if (!objGestionarDocenteGateway.existeDocentePorId(objFormatoA.getObjDocente().getIdDocente())) {
                     this.objFormatoResultados
-                            .retornarRespuestaErrorEntidadExiste("Error, no existe un docente con ese ID");
-                } else {
-                    objFormatoA.setObjDocente(objDocente);
+                            .retornarRespuestaErrorEntidadNoExiste("Error, no existe un docente con ese ID");
                 }
             }
         }

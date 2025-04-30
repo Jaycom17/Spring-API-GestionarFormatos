@@ -3,6 +3,7 @@ package edu.co.unicauca.tallerJPA_2.infraestructura.output.formateador;
 import org.springframework.stereotype.Service;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.FormateadorResultadosIntPort;
+import edu.co.unicauca.tallerJPA_2.infraestructura.output.controladorExepciones.excepcionesPropias.EntidadNoExisteException;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.controladorExepciones.excepcionesPropias.EntidadYaExisteException;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.controladorExepciones.excepcionesPropias.ReglaNegocioExcepcion;
 
@@ -18,6 +19,12 @@ public class FormateadorResultadosImplAdapter implements FormateadorResultadosIn
     @Override
     public void retornarRespuestaErrorReglaDeNegocio(String mensaje) {
         ReglaNegocioExcepcion objException = new ReglaNegocioExcepcion(mensaje);
+        throw objException;
+    }
+
+    @Override
+    public void retornarRespuestaErrorEntidadNoExiste(String mensaje) {
+        EntidadNoExisteException objException = new EntidadNoExisteException(mensaje);
         throw objException;
     }
 
