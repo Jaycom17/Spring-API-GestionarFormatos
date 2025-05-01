@@ -31,20 +31,22 @@ public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
         if (objGestionarFormatoAGateway.existeFormatoPorTitulo(objFormatoA.getTitulo())) {
             this.objFormatoResultados.retornarRespuestaErrorEntidadExiste(
                     "Error, ya existe un formato con el titulo: " + objFormatoA.getTitulo());
-        } else {
-            if (objFormatoA.getObjDocente().getIdDocente() == null) {
-                if (objGestionarDocenteGateway.existeDocentePorCorreo(objFormatoA.getObjDocente().getCorreo())) {
-                    this.objFormatoResultados
-                            .retornarRespuestaErrorEntidadExiste(
-                                    "Error, se encuentra en el sistema un docente con el correo: "
-                                            + objFormatoA.getObjDocente().getCorreo());
-                }
-            } else {
+            return null;
 
-                if (!objGestionarDocenteGateway.existeDocentePorId(objFormatoA.getObjDocente().getIdDocente())) {
-                    this.objFormatoResultados
-                            .retornarRespuestaErrorEntidadNoExiste("Error, no existe un docente con ese ID");
-                }
+        }
+
+        if (objFormatoA.getObjDocente().getIdDocente() == null) {
+            if (objGestionarDocenteGateway.existeDocentePorCorreo(objFormatoA.getObjDocente().getCorreo())) {
+                this.objFormatoResultados.retornarRespuestaErrorEntidadExiste(
+                        "Error, se encuentra en el sistema un docente con el correo: "
+                                + objFormatoA.getObjDocente().getCorreo());
+                return null;
+            }
+        } else {
+            if (!objGestionarDocenteGateway.existeDocentePorId(objFormatoA.getObjDocente().getIdDocente())) {
+                this.objFormatoResultados
+                        .retornarRespuestaErrorEntidadNoExiste("Error, no existe un docente con ese ID");
+                return null;
             }
         }
 

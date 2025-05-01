@@ -26,10 +26,12 @@ public class ObservacionRestController {
         this.objMapeador = objMapeador;
     }
 
-    @PostMapping("path")
+    @PostMapping("")
     public ObservacionDTORespuesta postMethodName(@RequestBody ObservacionDTOPeticion observacion) {
 
         Observacion objObservacion = objMapeador.map(observacion, Observacion.class);
+
+        System.out.println("objObservacion: " + objObservacion.toString());
 
         objObservacion = objGestionarObservacionCUIntPort.crearObservacion(objObservacion);
 

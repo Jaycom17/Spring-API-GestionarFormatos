@@ -9,5 +9,5 @@ import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades
 public interface EvaluacionRepository extends JpaRepository<EvaluacionEntity, Integer> {
     // No additional methods are needed for basic CRUD operations
     @Query(value = "SELECT MAX(e.id) FROM evaluaciones e WHERE e.formatosA.idFormatoA = :formatoAId", nativeQuery = true)
-    Long findLastEvaluacionIdByFormatoAId(@Param("formatoAId") Long formatoAId);
+    Integer findLastEvaluacionIdByFormatoAId(@Param("formatoAId") Integer formatoAId);
 }

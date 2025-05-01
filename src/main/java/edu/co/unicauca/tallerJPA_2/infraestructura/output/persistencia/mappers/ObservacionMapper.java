@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ObservacionMapper {
-    @Bean
+    @Bean("ObservacionMapperPersistenciaDominio")
     public ModelMapper crearObservacionMapper(){
         return new ModelMapper();
     }

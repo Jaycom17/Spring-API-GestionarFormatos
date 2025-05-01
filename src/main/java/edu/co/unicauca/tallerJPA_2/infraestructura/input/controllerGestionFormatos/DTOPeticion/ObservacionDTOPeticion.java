@@ -14,6 +14,6 @@ import lombok.Setter;
 public class ObservacionDTOPeticion {
     private String observacion;
 
-    private Integer objEvaluacion;
+    private Integer idFormatoA;
     private List<Integer> docentes;
 }

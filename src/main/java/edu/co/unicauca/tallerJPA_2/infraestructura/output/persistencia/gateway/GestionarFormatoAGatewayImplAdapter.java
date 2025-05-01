@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarFormatoAGatewayIntPort;
-import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoA;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoppA;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatotiA;
@@ -114,6 +113,12 @@ public class GestionarFormatoAGatewayImplAdapter implements GestionarFormatoAGat
     public Integer obtenerUltimaEvaluacion(Integer idFormatoA) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obtenerUltimaEvaluacion'");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existeFormatoPorId(Integer idFormatoA) {
+        return this.objFormatoARepository.existsById(idFormatoA);
     }
 
 }

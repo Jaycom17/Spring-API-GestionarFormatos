@@ -11,4 +11,5 @@ public interface GestionarFormatoAGatewayIntPort {
     public List<FormatoA> listarPorDocente(Integer idDocente);
     public List<FormatoA> listarPorTituloEntreFechas(String titulo, Date fechaInicio, Date fechaFin);
     public Integer obtenerUltimaEvaluacion(Integer idFormatoA);
+    public boolean existeFormatoPorId(Integer idFormatoA);
 }

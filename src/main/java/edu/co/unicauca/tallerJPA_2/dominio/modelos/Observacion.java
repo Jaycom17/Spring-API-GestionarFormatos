@@ -13,6 +13,7 @@ public class Observacion {
     private Integer idObservacion;
     private String observacion;
     private Date fechaRegistroObservacion;
+    private Integer idFormatoA;
 
     private Evaluacion objEvaluacion;
     private List<Docente> docentes;
