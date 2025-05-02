@@ -1,5 +1,8 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -22,10 +25,22 @@ import lombok.Setter;
   @JsonSubTypes.Type(value = FormatotiADTOPeticion.class, name = "ti")
 })
 public abstract class FormatoADTOPeticion {
-    private String titulo;
-    private String objetivoGeneral;
-    private String objetivosEspecificos;
-    private String nombreEstudiante1;
+  @NotNull(message = "{user.title.empty}")
+  @Size(message = "{user.title.length}")
+  private String titulo;
 
-    private DocenteDTOPeticion objDocente;
+  @NotNull(message = "{user.objetg.empty}")
+  @Size(message = "{user.objetg.length}")
+  private String objetivoGeneral;
+
+  
+  private String objetivosEspecificos;
+
+  @NotNull(message = "{user.name.empty}")
+  @Size(min = 5, max = 45, message = "{user.name.length}")
+  private String nombreEstudiante1;
+
+  @NotNull(message = "{user.name.empty}")
+  @Size(min = 5, max = 45, message = "{user.name.length}")
+  private DocenteDTOPeticion objDocente;
 }
