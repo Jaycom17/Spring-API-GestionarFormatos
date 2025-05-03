@@ -6,6 +6,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarObservacionGatewayIntPort;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
@@ -34,6 +35,7 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
     }
 
     @Override
+    @Transactional
     public Observacion guardarObservacion(Observacion objObservacion) {
 
         ObservacionEntity observacionEntity = this.observacionModelMapper.map(objObservacion, ObservacionEntity.class);
@@ -62,6 +64,13 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
     public List<Observacion> listarPorFormato(Integer idFormatoA) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listarPorFormato'");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer encontrarUltimaEvaluacionPorFormato(Integer idFormatoA) {
+        Integer idEvaluacion = this.objEvaluacionRepository.findLastEvaluacionIdByFormatoAId(idFormatoA);
+        return idEvaluacion;
     }
     
 }

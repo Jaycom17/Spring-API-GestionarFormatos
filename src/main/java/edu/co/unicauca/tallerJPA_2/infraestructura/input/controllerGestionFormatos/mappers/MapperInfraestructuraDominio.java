@@ -12,8 +12,11 @@ import org.springframework.context.annotation.Configuration;
 
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Evaluacion;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.Historico;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Observacion;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.ObservacionDTOPeticion;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.DocenteDTORespuesta;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.HistoricoDTORespuesta;
 
 @Configuration
 public class MapperInfraestructuraDominio {
@@ -56,5 +59,23 @@ public class MapperInfraestructuraDominio {
                 });
 
         return objMapper;
+    }
+
+    @Bean("HistoricoMapperInfraestructuraDominio")
+    public ModelMapper crearHistoricoMapperInfraestructuraDominio() {
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.getConfiguration()
+            .setMatchingStrategy(MatchingStrategies.STRICT)
+            .setFieldMatchingEnabled(true)
+            .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+            .setSkipNullEnabled(true);
+
+        modelMapper.typeMap(Historico.class, HistoricoDTORespuesta.class).addMappings(mapper -> {
+            mapper.skip(HistoricoDTORespuesta::setObjRol);
+        });
+
+        return modelMapper;
     }
 }

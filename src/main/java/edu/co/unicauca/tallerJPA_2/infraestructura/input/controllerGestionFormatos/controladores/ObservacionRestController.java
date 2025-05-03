@@ -27,7 +27,7 @@ public class ObservacionRestController {
     }
 
     @PostMapping("")
-    public ObservacionDTORespuesta postMethodName(@RequestBody ObservacionDTOPeticion observacion) {
+    public ObservacionDTORespuesta crearObservacion(@RequestBody ObservacionDTOPeticion observacion) {
 
         Observacion objObservacion = objMapeador.map(observacion, Observacion.class);
 

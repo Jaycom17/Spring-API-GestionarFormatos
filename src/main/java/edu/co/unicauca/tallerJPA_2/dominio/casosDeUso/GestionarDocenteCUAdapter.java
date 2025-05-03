@@ -19,6 +19,10 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort{
 
     @Override
     public List<Docente> listarDocentesPorGrupoPatron(String nombreGrupo, String patronBusqueda) {
+
+        System.out.println("Nombre del grupo: " + nombreGrupo);
+        System.out.println("Patrón de búsqueda: " + patronBusqueda);
+
         List<Docente> listaObtenida = objGestionarDocenteGateway.listarDocentesPorGrupoPatron(nombreGrupo, patronBusqueda);
 
         return listaObtenida;

@@ -1,5 +1,6 @@
 package edu.co.unicauca.tallerJPA_2.dominio.casosDeUso;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.input.GestionarObservacionCUIntPort;
@@ -41,6 +42,8 @@ public class GestionarObservacionCUAdapter implements GestionarObservacionCUIntP
             }
         }
 
+        objObservacion.setFechaRegistroObservacion(new Date());
+
         Observacion objObservacionCreada = this.objGestionarObservacionGateway.guardarObservacion(objObservacion);
 
         return objObservacionCreada;
@@ -48,8 +51,12 @@ public class GestionarObservacionCUAdapter implements GestionarObservacionCUIntP
 
     @Override
     public List<Observacion> listarObservacionesPorFormato(Integer idFormatoA) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarObservacionesPorFormato'");
+        if (!this.objGestionarFormatoAGateway.existeFormatoPorId(idFormatoA)) {
+            objFormatoResultados.retornarRespuestaErrorEntidadNoExiste("No existe un formato A con el id: " + idFormatoA);
+            return null;
+        }
+
+        return null;
     }
     
 }

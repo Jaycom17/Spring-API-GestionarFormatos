@@ -23,6 +23,6 @@ public interface FormatoARepository extends JpaRepository<FormatoAEntity, Intege
         @Param("fechaFin") LocalDate fechaFin
     );
 
-    @Query(value = "SELECT COUNT(*) > 0 FROM formatosA WHERE LOWER(titulo) = LOWER(:titulo)", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) > 0 FROM FormatosA WHERE LOWER(titulo) = LOWER(:titulo)", nativeQuery = true)
     Integer existsByTitulo(@Param("titulo") String titulo);
 }

@@ -31,7 +31,7 @@ public class FormatoARestController {
     }   
 
     @PostMapping("") 
-    public FormatoADTORespuesta postMethodName(@RequestBody FormatoADTOPeticion formatoA) {
+    public FormatoADTORespuesta crearFormatoA(@RequestBody FormatoADTOPeticion formatoA) {
 
         FormatoA objFormatoADominio = null;
         FormatoADTORespuesta objRespuesta = null;

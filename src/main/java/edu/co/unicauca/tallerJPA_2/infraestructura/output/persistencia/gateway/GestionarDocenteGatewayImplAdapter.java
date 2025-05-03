@@ -12,6 +12,7 @@ import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarDocenteGatewayIntP
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.DocenteEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.repositorios.DocenteRepository;
+import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.repositorios.HistoricoRepository;
 
 @Service
 public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatewayIntPort {
@@ -19,7 +20,7 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     private final DocenteRepository objDocenteRepository;
     private final ModelMapper docenteModelMapper;
 
-    public GestionarDocenteGatewayImplAdapter(DocenteRepository objDocenteRepository, @Qualifier("DocenteMapperPersistenciaDominio") ModelMapper docenteModelMapper) {
+    public GestionarDocenteGatewayImplAdapter(DocenteRepository objDocenteRepository, HistoricoRepository objHistoricoRepository, @Qualifier("DocenteMapperPersistenciaDominio") ModelMapper docenteModelMapper) {
         this.objDocenteRepository = objDocenteRepository;
         this.docenteModelMapper = docenteModelMapper;
     }
@@ -39,18 +40,12 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     @Override
     @Transactional(readOnly = true)
     public List<Docente> listarDocentesPorGrupoPatron(String nombreGrupo, String patronBusqueda) {
+
         List<DocenteEntity> listaDocentesEntity = objDocenteRepository.findByNombreGrupoAndApellidosDocenteStartingWithIgnoreCase(nombreGrupo, patronBusqueda);
 
         List<Docente> listaObtenida = this.docenteModelMapper.map(listaDocentesEntity, new TypeToken<List<Docente>>() {}.getType());
         
         return listaObtenida;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Docente> listarMiembrosComite() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarMiembrosComite'");
     }
     
     @Override
