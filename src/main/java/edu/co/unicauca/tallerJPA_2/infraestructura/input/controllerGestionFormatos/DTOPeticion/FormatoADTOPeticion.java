@@ -29,18 +29,16 @@ import lombok.Setter;
 })
 public abstract class FormatoADTOPeticion {
   @NotNull(message = "{user.title.empty}")
-  @Size(message = "{user.title.length}")
+  @Size(min = 20, message = "{user.title.length}")
   private String titulo;
 
   @NotNull(message = "{user.objetg.empty}")
-  @Size(min = 20, max = 120, message = "{user.objetg.length}")
+  @Size(min = 50, message = "{user.objetg.length}")
   private String objetivoGeneral;
   
-  
   @NotNull(message = "{user.objetesp.empty}")
-  @Size(min = 3, message = "{user.objetesp.length}")
+  @Size(min = 3, max = 5, message = "{user.objetesp.length}")
   private List<String> objetivosEspecificos;
-
 
   @NotNull(message = "{user.cod.empty}")
   @Pattern(message = "{user.cod.pattern}", regexp = "[1046][0-12]{11}")

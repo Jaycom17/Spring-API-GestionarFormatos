@@ -5,17 +5,17 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
-import edu.co.unicauca.tallerJPA_2.dominio.modelos.Evaluacion;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoA;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Historico;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Observacion;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.FormatoADTOPeticion;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.ObservacionDTOPeticion;
-import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.DocenteDTORespuesta;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatoADTORespuesta;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.HistoricoDTORespuesta;
 
 @Configuration
@@ -28,7 +28,43 @@ public class MapperInfraestructuraDominio {
 
     @Bean("FormatoAMapperInfraestructuraDominio")
     public ModelMapper crearFormatoAMapperInfraestructuraDominio() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.getConfiguration()
+            .setMatchingStrategy(MatchingStrategies.STRICT)
+            .setFieldMatchingEnabled(true)
+            .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+            .setSkipNullEnabled(true);
+
+        modelMapper.typeMap(FormatoADTOPeticion.class, FormatoA.class)
+            .addMappings(mapper -> {
+
+                mapper.using(ctx -> {
+                    List<String> list = (List<String>) ctx.getSource();
+                    if (list == null) {
+                        return null;
+                    }
+
+                    // Convertir la lista de cadenas a una cadena separada por ;
+                    return list.stream()
+                            .collect(Collectors.joining(";"));
+
+                }).map(FormatoADTOPeticion::getObjetivosEspecificos, FormatoA::setObjetivosEspecificos);
+            });
+
+        modelMapper.typeMap(FormatoA.class, FormatoADTORespuesta.class).addMappings(mapper -> {
+            mapper.using(ctx -> {
+                String list = (String) ctx.getSource();
+                if (list == null) {
+                    return null;
+                }
+
+                // Convertir la cadena separada por ; a una lista de cadenas
+                return List.of(list.split(";"));
+            }).map(FormatoA::getObjetivosEspecificos, FormatoADTORespuesta::setObjetivosEspecificos);
+        });
+
+        return modelMapper;
     }
 
     @Bean("ObservacionMapperInfraestructuraDominio")
