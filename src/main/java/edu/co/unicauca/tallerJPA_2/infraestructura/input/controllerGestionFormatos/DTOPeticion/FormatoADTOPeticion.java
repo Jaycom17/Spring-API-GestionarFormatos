@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.Validaciones.ObjetivosSonVerbosValidatorInt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public abstract class FormatoADTOPeticion {
   
   @NotNull(message = "{user.objetesp.empty}")
   @Size(min = 3, max = 5, message = "{user.objetesp.length}")
+  @ObjetivosSonVerbosValidatorInt
   private List<String> objetivosEspecificos;
 
   @NotNull(message = "{user.cod.empty}")

@@ -1,11 +1,10 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.controladores;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,21 +27,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class FormatoARestController {
     private final GestionarFormatoACUIntPort objGestionarFormatoACUIntPort;
     private final ModelMapper objMapeador;
-    private final Validator validator;
 
-    public FormatoARestController(GestionarFormatoACUIntPort objGestionarFormatoACUIntPort, @Qualifier("FormatoAMapperInfraestructuraDominio") ModelMapper objMapeador, Validator validator) {
+    public FormatoARestController(GestionarFormatoACUIntPort objGestionarFormatoACUIntPort, @Qualifier("FormatoAMapperInfraestructuraDominio") ModelMapper objMapeador) {
         this.objGestionarFormatoACUIntPort = objGestionarFormatoACUIntPort;
         this.objMapeador = objMapeador;
-        this.validator = validator;
     }   
 
     @PostMapping("") 
-    public FormatoADTORespuesta crearFormatoA(@RequestBody @Valid FormatoADTOPeticion formatoA) {
-
-        var violations = validator.validate(formatoA);
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
+    public ResponseEntity<FormatoADTORespuesta> crearFormatoA(@Valid @RequestBody FormatoADTOPeticion formatoA) {
 
         FormatoA objFormatoADominio = null;
         FormatoADTORespuesta objRespuesta = null;
@@ -62,7 +54,7 @@ public class FormatoARestController {
         }
 
         
-        return objRespuesta;
+        return ResponseEntity.ok(objRespuesta);
     }
     
 }

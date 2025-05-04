@@ -1,5 +1,7 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.controladores;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,7 @@ import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormat
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.ObservacionDTORespuesta;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,17 +30,15 @@ public class ObservacionRestController {
     }
 
     @PostMapping("")
-    public ObservacionDTORespuesta crearObservacion(@RequestBody ObservacionDTOPeticion observacion) {
+    public ResponseEntity<ObservacionDTORespuesta> crearObservacion(@Valid @RequestBody ObservacionDTOPeticion observacion) {
 
         Observacion objObservacion = objMapeador.map(observacion, Observacion.class);
-
-        System.out.println("objObservacion: " + objObservacion.toString());
 
         objObservacion = objGestionarObservacionCUIntPort.crearObservacion(objObservacion);
 
         ObservacionDTORespuesta objObservacionDTORespuesta = objMapeador.map(objObservacion, ObservacionDTORespuesta.class);
         
-        return objObservacionDTORespuesta;
+        return ResponseEntity.ok(objObservacionDTORespuesta);
     }
     
 }
