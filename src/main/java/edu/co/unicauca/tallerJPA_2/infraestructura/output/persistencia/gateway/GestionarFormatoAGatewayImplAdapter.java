@@ -104,6 +104,8 @@ public class GestionarFormatoAGatewayImplAdapter implements GestionarFormatoAGat
 
         List<FormatoA> listaFormatosADominio = new ArrayList<FormatoA>();
 
+        System.out.println("\t//-----------------\n\t\t Listar Formatos por Docente (Previo a realizar el mapeo) \n\t//-----------------");
+
         for (FormatoAEntity formato : listaFormatos) {
             if (formato instanceof FormatoppAEntity) {
                 FormatoppAEntity formatoPPAEntity = (FormatoppAEntity) formato;
@@ -130,6 +132,30 @@ public class GestionarFormatoAGatewayImplAdapter implements GestionarFormatoAGat
     @Transactional(readOnly = true)
     public boolean existeFormatoPorId(Integer idFormatoA) {
         return this.objFormatoARepository.existsById(idFormatoA);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FormatoA> listarPorDocenteYFechas(Integer idDocente, Date fechaInicio, Date fechaFin) {
+        List<FormatoAEntity> listaFormatos = this.objFormatoARepository.findFormatosPorDocenteYFecha(idDocente, fechaInicio, fechaFin);
+
+        List<FormatoA> listaFormatosADominio = new ArrayList<FormatoA>();
+
+        System.out.println("\t//-----------------\n\t\t Listar Formatos por Docente y Fechas (Previo a realizar el mapeo) \n\t//-----------------");
+
+        for (FormatoAEntity formato : listaFormatos) {
+            if (formato instanceof FormatoppAEntity) {
+                FormatoppAEntity formatoPPAEntity = (FormatoppAEntity) formato;
+                FormatoppA objFormatoADominio = this.formatoAModelMapper.map(formatoPPAEntity, FormatoppA.class);
+                listaFormatosADominio.add(objFormatoADominio);
+            } else {
+                FormatotiAEntity formatoTIAEntity = (FormatotiAEntity) formato;
+                FormatotiA objFormatoADominio = this.formatoAModelMapper.map(formatoTIAEntity, FormatotiA.class);
+                listaFormatosADominio.add(objFormatoADominio);
+            }
+        }
+
+        return listaFormatosADominio; 
     }
 
 }

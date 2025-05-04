@@ -69,6 +69,8 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
 
         List<Observacion> listaObservacionesDominio = new ArrayList<>();
 
+        System.out.println("\t//-----------------\n\t\t Listar Observaciones por Formato (Previo a realizar el mapeo) \n\t//-----------------");
+
         for (ObservacionEntity observacion : listaObservaciones) {
             Observacion objObservacion = this.observacionModelMapper.map(observacion, Observacion.class);
             listaObservacionesDominio.add(objObservacion);

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.output.GestionarHistoricoGatewayIntPort;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Historico;
+import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.HistoricoEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.repositorios.HistoricoRepository;
 
 @Service
@@ -27,7 +28,11 @@ public class GestionarHistoricosGatewayImplAdapter implements GestionarHistorico
     @Transactional(readOnly = true)
     public List<Historico> listarMiembrosComite() {
 
-        List<Historico> listaMiembrosComite = this.historicoModelMapper.map(objHistoricoRepository.findAll(), new TypeToken<List<Historico>>() {}.getType());
+        List<HistoricoEntity> listaMiembrosComiteEntity = objHistoricoRepository.findAll();
+
+        System.out.println("\t//-----------------\n\t\t Listar Miembros del Comite (Previo a realizar el mapeo) \n\t//-----------------");
+
+        List<Historico> listaMiembrosComite = this.historicoModelMapper.map(listaMiembrosComiteEntity, new TypeToken<List<Historico>>() {}.getType());
         
         return listaMiembrosComite;
     }

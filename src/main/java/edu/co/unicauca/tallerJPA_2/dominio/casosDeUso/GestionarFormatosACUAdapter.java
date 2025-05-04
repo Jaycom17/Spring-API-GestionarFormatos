@@ -83,4 +83,23 @@ public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
         throw new UnsupportedOperationException("Unimplemented method 'listarPorTituloEntreFechas'");
     }
 
+    @Override
+    public List<FormatoA> listarPorDocenteYFechas(Integer idDocente, Date fechaInicio, Date fechaFin) {
+        if (!objGestionarDocenteGateway.existeDocentePorId(idDocente)) {
+            this.objFormatoResultados.retornarRespuestaErrorEntidadNoExiste("Error, no existe un docente con ese ID");
+            return null;
+        }
+
+        List<FormatoA> objFormatoA = objGestionarFormatoAGateway.listarPorDocenteYFechas(idDocente, fechaInicio,
+                fechaFin);
+
+        if (objFormatoA.isEmpty()) {
+            this.objFormatoResultados.retornarRespuestaErrorEntidadNoExiste(
+                    "Error, no se encontraron formatos asociados al docente con ID: " + idDocente);
+            return null;
+        }
+
+        return objFormatoA;
+    }
+
 }

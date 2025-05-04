@@ -1,6 +1,6 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.repositorios;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,12 +19,23 @@ public interface FormatoARepository extends JpaRepository<FormatoAEntity, Intege
        "AND fa.fechaCreacion BETWEEN :fechaInicio AND :fechaFin")
     List<Object[]> findFormatoAWithEstadoAndDocentes(
         @Param("titulo") String titulo,
-        @Param("fechaInicio") LocalDate fechaInicio,
-        @Param("fechaFin") LocalDate fechaFin
+        @Param("fechaInicio") Date fechaInicio,
+        @Param("fechaFin") Date fechaFin
     );
 
     @Query(value = "SELECT COUNT(*) > 0 FROM FormatosA WHERE LOWER(titulo) = LOWER(:titulo)", nativeQuery = true)
     Integer existsByTitulo(@Param("titulo") String titulo);
 
     List<FormatoAEntity> findByObjDocenteIdDocente(Integer idDocente);
+    
+    
+    @Query("SELECT f FROM FormatoAEntity f " +
+    "JOIN FETCH f.objDocente d " +  // FETCH carga inmediatamente la relación
+    "JOIN FETCH f.objEstado e " +   // Evita LazyInitializationException
+    "WHERE d.idDocente = :idDocente " +
+    "AND f.fechaCreacion BETWEEN :fechaInicio AND :fechaFin")
+    List<FormatoAEntity> findFormatosPorDocenteYFecha(
+    @Param("idDocente") Integer idDocente,
+    @Param("fechaInicio") Date fechaInicio,
+    @Param("fechaFin") Date fechaFin);
 }
