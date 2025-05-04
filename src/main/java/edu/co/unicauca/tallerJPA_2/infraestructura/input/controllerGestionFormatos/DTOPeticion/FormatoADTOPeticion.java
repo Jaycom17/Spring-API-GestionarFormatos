@@ -2,6 +2,7 @@ package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionForma
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -34,7 +35,7 @@ public abstract class FormatoADTOPeticion {
   private String titulo;
 
   @NotNull(message = "{user.objetg.empty}")
-  @Size(min = 50, message = "{user.objetg.length}")
+  @Size(min = 20, message = "{user.objetg.length}")
   private String objetivoGeneral;
   
   @NotNull(message = "{user.objetesp.empty}")
@@ -43,7 +44,7 @@ public abstract class FormatoADTOPeticion {
   private List<String> objetivosEspecificos;
 
   @NotNull(message = "{user.cod.empty}")
-  @Pattern(message = "{user.cod.pattern}", regexp = "[1046][0-12]{11}")
+  @Pattern(message = "{user.cod.pattern}", regexp = "^1046\\d{8}$")
   private String codigoEstudiante1;
 
   @NotNull(message = "{user.name.empty}")
@@ -51,6 +52,6 @@ public abstract class FormatoADTOPeticion {
   private String nombreEstudiante1;
 
   @NotNull(message = "{user.name.empty}")
-  @Size(min = 5, max = 45, message = "{user.name.length}")
+  @Valid
   private DocenteDTOPeticion objDocente;
 }
