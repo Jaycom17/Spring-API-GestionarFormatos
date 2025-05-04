@@ -64,6 +64,7 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Observacion> listarPorFormato(Integer idFormatoA) {
         List<ObservacionEntity> listaObservaciones = this.objObservacionRepository.findByIdFormatoA(idFormatoA);
 

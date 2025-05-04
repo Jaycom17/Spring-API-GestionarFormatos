@@ -34,8 +34,7 @@ public abstract class FormatoADTOPeticion {
   @Size(min = 20, message = "{user.title.length}")
   private String titulo;
 
-  @NotNull(message = "{user.objetg.empty}")
-  @Size(min = 20, message = "{user.objetg.length}")
+  @NotEmpty(message = "{user.objetg.empty}")
   private String objetivoGeneral;
   
   @NotNull(message = "{user.objetesp.empty}")
