@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.Validaciones.ObjetivosSonVerbosValidatorInt;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -42,7 +43,7 @@ public abstract class FormatoADTOPeticion {
   @ObjetivosSonVerbosValidatorInt
   private List<String> objetivosEspecificos;
 
-  @NotNull(message = "{user.cod.empty}")
+  @NotEmpty(message = "{user.cod.empty}")
   @Pattern(message = "{user.cod.pattern}", regexp = "^1046\\d{8}$")
   private String codigoEstudiante1;
 
