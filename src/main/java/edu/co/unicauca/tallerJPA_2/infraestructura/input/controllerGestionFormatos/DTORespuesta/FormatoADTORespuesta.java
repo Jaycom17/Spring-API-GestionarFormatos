@@ -36,4 +36,5 @@ public abstract class FormatoADTORespuesta {
 
     private DocenteDTORespuesta objDocente;
     private EstadoDTORespuesta objEstado;
+    private List<EvaluacionDTORespuesta> evaluaciones;
 }

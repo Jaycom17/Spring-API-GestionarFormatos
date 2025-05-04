@@ -61,8 +61,20 @@ public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
 
     @Override
     public List<FormatoA> listarPorDocente(Integer idDocente) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarPorDocente'");
+        if (!objGestionarDocenteGateway.existeDocentePorId(idDocente)) {
+            this.objFormatoResultados.retornarRespuestaErrorEntidadNoExiste("Error, no existe un docente con ese ID");
+            return null;
+        }
+
+        List<FormatoA> objFormatoA = objGestionarFormatoAGateway.listarPorDocente(idDocente);
+
+        if (objFormatoA.isEmpty()) {
+            this.objFormatoResultados.retornarRespuestaErrorEntidadNoExiste(
+                    "Error, no se encontraron formatos asociados al docente con ID: " + idDocente);
+            return null;
+        }
+
+        return objFormatoA;
     }
 
     @Override

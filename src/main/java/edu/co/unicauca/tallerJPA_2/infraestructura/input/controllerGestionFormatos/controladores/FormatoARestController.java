@@ -1,6 +1,8 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.controladores;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +23,9 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -57,5 +62,28 @@ public class FormatoARestController {
         
         return ResponseEntity.ok(objRespuesta);
     }
+
+    @GetMapping("/listarPorDocente")
+    public ResponseEntity<List<FormatoADTORespuesta>> getMethodName(@RequestParam Integer idDocente) {
+        List<FormatoA> objFormatoADominio = objGestionarFormatoACUIntPort.listarPorDocente(idDocente);
+
+        List<FormatoADTORespuesta> respuestas = new ArrayList<FormatoADTORespuesta>();
+
+        for (FormatoA formato : objFormatoADominio) {
+            if(formato instanceof FormatotiA) {
+                FormatotiA objFormatotiADominio = (FormatotiA) formato;
+                FormatotiADTORespuesta objFormatoADTORespuesta = objMapeador.map(objFormatotiADominio, FormatotiADTORespuesta.class);
+                respuestas.add(objFormatoADTORespuesta);
+            } else {
+                FormatoppA objFormatoppADominio = (FormatoppA) formato;
+                FormatoppADTORespuesta objFormatoADTORespuesta = objMapeador.map(objFormatoppADominio, FormatoppADTORespuesta.class);
+                respuestas.add(objFormatoADTORespuesta);
+            }
+        }
+        
+        
+        return ResponseEntity.ok(respuestas);
+    }
+    
     
 }

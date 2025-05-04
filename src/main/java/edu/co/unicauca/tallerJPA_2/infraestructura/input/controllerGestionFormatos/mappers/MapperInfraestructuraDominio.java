@@ -20,6 +20,7 @@ import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormat
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatoppADTORespuesta;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatotiADTORespuesta;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.HistoricoDTORespuesta;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.ObservacionesDTORespuesta;
 
 @Configuration
 public class MapperInfraestructuraDominio {
@@ -144,5 +145,21 @@ public class MapperInfraestructuraDominio {
         });
 
         return modelMapper;
+    }
+
+
+    //TODO: si queda tiempo hacer el mapeo a observacionesDTORespuesta
+    @Bean("ObservacionesMapperInfraestructuraDominio")
+    public ModelMapper crearObservacionesMapperInfraestructuraDominio() {
+        ModelMapper objMapper = new ModelMapper();
+        objMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        // Configuración del mapeo
+        objMapper.createTypeMap(Observacion.class, ObservacionesDTORespuesta.class)
+                .addMappings(mapper -> {
+
+                });
+
+        return objMapper;
     }
 }

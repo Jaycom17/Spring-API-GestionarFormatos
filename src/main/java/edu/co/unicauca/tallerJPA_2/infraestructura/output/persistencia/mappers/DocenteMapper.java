@@ -46,6 +46,7 @@ public class DocenteMapper {
                         dto.setObjetivosEspecificos(List.of(formatoPP.getObjetivosEspecificos().split(";")));
                         dto.setNombreEstudiante1(formatoPP.getNombreEstudiante1());
                         dto.setFechaCreacion(formatoPP.getFechaCreacion());
+                        dto.setCodigoEstudiante1(formatoPP.getCodigoEstudiante1());
                         // puedes omitir objDocente, objEstado, evaluaciones si quieres
                         dto.setNombreAsesor(formatoPP.getNombreAsesor());
                         dto.setRutaCartaAceptacion(formatoPP.getRutaCartaAceptacion());
@@ -58,6 +59,8 @@ public class DocenteMapper {
                         dto.setObjetivosEspecificos(List.of(formatoTI.getObjetivosEspecificos().split(";")));
                         dto.setNombreEstudiante1(formatoTI.getNombreEstudiante1());
                         dto.setNombreEstudiante2(formatoTI.getNombreEstudiante2());
+                        dto.setCodigoEstudiante1(formatoTI.getCodigoEstudiante1());
+                        dto.setCodigoEstudiante2(formatoTI.getCodigoEstudiante2());
                         dto.setFechaCreacion(formatoTI.getFechaCreacion());
                         return dto;
                     } else {
@@ -66,6 +69,8 @@ public class DocenteMapper {
                 }).filter(Objects::nonNull)
                   .collect(Collectors.toList());
             }).map(DocenteEntity::getFormatos, Docente::setFormatos));
+
+        // Mapear los formatos de manera correcta
 
         return objMapper;
     }

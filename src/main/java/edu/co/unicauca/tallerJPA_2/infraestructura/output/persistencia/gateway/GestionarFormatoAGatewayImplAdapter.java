@@ -1,9 +1,11 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.gateway;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoppA;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatotiA;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.DocenteEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.EstadoEntity;
+import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.FormatoAEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.FormatoppAEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades.FormatotiAEntity;
 import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.repositorios.DocenteRepository;
@@ -97,8 +100,23 @@ public class GestionarFormatoAGatewayImplAdapter implements GestionarFormatoAGat
     @Override
     @Transactional(readOnly = true)
     public List<FormatoA> listarPorDocente(Integer idDocente) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarPorDocente'");
+        List<FormatoAEntity> listaFormatos = this.objFormatoARepository.findByObjDocenteIdDocente(idDocente);
+
+        List<FormatoA> listaFormatosADominio = new ArrayList<FormatoA>();
+
+        for (FormatoAEntity formato : listaFormatos) {
+            if (formato instanceof FormatoppAEntity) {
+                FormatoppAEntity formatoPPAEntity = (FormatoppAEntity) formato;
+                FormatoppA objFormatoADominio = this.formatoAModelMapper.map(formatoPPAEntity, FormatoppA.class);
+                listaFormatosADominio.add(objFormatoADominio);
+            } else {
+                FormatotiAEntity formatoTIAEntity = (FormatotiAEntity) formato;
+                FormatotiA objFormatoADominio = this.formatoAModelMapper.map(formatoTIAEntity, FormatotiA.class);
+                listaFormatosADominio.add(objFormatoADominio);
+            }
+        }
+
+        return listaFormatosADominio; 
     }
 
     @Override
@@ -106,13 +124,6 @@ public class GestionarFormatoAGatewayImplAdapter implements GestionarFormatoAGat
     public List<FormatoA> listarPorTituloEntreFechas(String titulo, Date fechaInicio, Date fechaFin) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listarPorTituloEntreFechas'");
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Integer obtenerUltimaEvaluacion(Integer idFormatoA) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerUltimaEvaluacion'");
     }
 
     @Override

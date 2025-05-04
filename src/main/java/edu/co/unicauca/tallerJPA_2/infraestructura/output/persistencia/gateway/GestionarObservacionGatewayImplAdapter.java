@@ -25,13 +25,16 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
     private final DocenteRepository objDocenteRepository;
     private final EvaluacionRepository objEvaluacionRepository;
     private final ModelMapper observacionModelMapper;
+    private final ModelMapper observacionesModelMapper;
 
     public GestionarObservacionGatewayImplAdapter(ObservacionRepository objObservacionRepository, DocenteRepository objDocenteRepository,
-    EvaluacionRepository objEvaluacionRepository, @Qualifier("ObservacionMapperPersistenciaDominio") ModelMapper observacionModelMapper) {
+    EvaluacionRepository objEvaluacionRepository, @Qualifier("ObservacionMapperPersistenciaDominio") ModelMapper observacionModelMapper,
+            @Qualifier("ObservacionMapperPersistenciaDominio") ModelMapper observacionesModelMapper) {
         this.objObservacionRepository = objObservacionRepository;
         this.objDocenteRepository = objDocenteRepository;
         this.objEvaluacionRepository = objEvaluacionRepository;
         this.observacionModelMapper = observacionModelMapper;
+        this.observacionesModelMapper = observacionesModelMapper;
     }
 
     @Override
@@ -62,8 +65,16 @@ public class GestionarObservacionGatewayImplAdapter implements GestionarObservac
 
     @Override
     public List<Observacion> listarPorFormato(Integer idFormatoA) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarPorFormato'");
+        List<ObservacionEntity> listaObservaciones = this.objObservacionRepository.findByIdFormatoA(idFormatoA);
+
+        List<Observacion> listaObservacionesDominio = new ArrayList<>();
+
+        for (ObservacionEntity observacion : listaObservaciones) {
+            Observacion objObservacion = this.observacionModelMapper.map(observacion, Observacion.class);
+            listaObservacionesDominio.add(objObservacion);
+        }
+
+        return listaObservacionesDominio;
     }
 
     @Override

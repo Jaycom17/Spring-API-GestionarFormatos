@@ -14,19 +14,25 @@ import edu.co.unicauca.tallerJPA_2.infraestructura.output.persistencia.entidades
 @Configuration
 public class HistoricoMapper {
     @Bean("HistoricoMapperPersistenciaDominio")
-    public ModelMapper crearFormatoAMapper() {
+    public ModelMapper crearMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
         modelMapper.getConfiguration()
             .setMatchingStrategy(MatchingStrategies.STRICT)
             .setFieldMatchingEnabled(true)
             .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
-            .setSkipNullEnabled(true);
+            .setSkipNullEnabled(true)
+            .setImplicitMappingEnabled(false);
 
         modelMapper.typeMap(HistoricoEntity.class, Historico.class)
             .addMappings(mapper -> {
                 
                 mapper.skip(Historico::setObjRol);
+
+                mapper.map(HistoricoEntity::getIdHistorico, Historico::setIdHistorico);
+                mapper.map(HistoricoEntity::getActivo, Historico::setActivo);
+                mapper.map(HistoricoEntity::getFechaInicio, Historico::setFechaInicio);
+                mapper.map(HistoricoEntity::getFechaFin, Historico::setFechaFin);
 
                 mapper.using(ctx -> {
                     DocenteEntity entity = (DocenteEntity) ctx.getSource();

@@ -56,7 +56,14 @@ public class GestionarObservacionCUAdapter implements GestionarObservacionCUIntP
             return null;
         }
 
-        return null;
+        List<Observacion> objObservacion = this.objGestionarObservacionGateway.listarPorFormato(idFormatoA);
+
+        if (objObservacion.isEmpty()) {
+            objFormatoResultados.retornarRespuestaErrorEntidadNoExiste("No existen observaciones para el formato A con id: " + idFormatoA);
+            return null;
+        }
+
+        return objObservacion;
     }
     
 }

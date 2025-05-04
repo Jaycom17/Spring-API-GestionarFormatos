@@ -21,6 +21,6 @@ public class FormatotiADTOPeticion extends FormatoADTOPeticion{
     private String nombreEstudiante2;
     
     @NotNull(message = "{user.cod.empty}")
-    @Pattern(message = "{user.cod.pattern}", regexp = "[1046][0-12]{11}")
+    @Pattern(message = "{user.cod.pattern}", regexp = "^1046\\d{8}$")
     private String codigoEstudiante2;
 }
