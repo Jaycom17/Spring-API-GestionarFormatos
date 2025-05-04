@@ -43,7 +43,7 @@ public class DocenteMapper {
                         dto.setIdFormatoA(formatoPP.getIdFormatoA());
                         dto.setTitulo(formatoPP.getTitulo());
                         dto.setObjetivoGeneral(formatoPP.getObjetivoGeneral());
-                        dto.setObjetivosEspecificos(formatoPP.getObjetivosEspecificos());
+                        dto.setObjetivosEspecificos(List.of(formatoPP.getObjetivosEspecificos().split(";")));
                         dto.setNombreEstudiante1(formatoPP.getNombreEstudiante1());
                         dto.setFechaCreacion(formatoPP.getFechaCreacion());
                         // puedes omitir objDocente, objEstado, evaluaciones si quieres
@@ -55,7 +55,7 @@ public class DocenteMapper {
                         dto.setIdFormatoA(formatoTI.getIdFormatoA());
                         dto.setTitulo(formatoTI.getTitulo());
                         dto.setObjetivoGeneral(formatoTI.getObjetivoGeneral());
-                        dto.setObjetivosEspecificos(formatoTI.getObjetivosEspecificos());
+                        dto.setObjetivosEspecificos(List.of(formatoTI.getObjetivosEspecificos().split(";")));
                         dto.setNombreEstudiante1(formatoTI.getNombreEstudiante1());
                         dto.setNombreEstudiante2(formatoTI.getNombreEstudiante2());
                         dto.setFechaCreacion(formatoTI.getFechaCreacion());

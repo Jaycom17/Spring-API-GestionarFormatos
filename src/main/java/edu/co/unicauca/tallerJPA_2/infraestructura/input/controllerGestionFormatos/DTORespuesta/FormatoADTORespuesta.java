@@ -2,6 +2,7 @@ package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionForma
 
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -28,8 +29,9 @@ public abstract class FormatoADTORespuesta {
     private Integer idFormatoA;
     private String titulo;
     private String objetivoGeneral;
-    private String objetivosEspecificos;
+    private List<String> objetivosEspecificos;
     private String nombreEstudiante1;
+    private String codigoEstudiante1;
     private Date fechaCreacion;
 
     private DocenteDTORespuesta objDocente;

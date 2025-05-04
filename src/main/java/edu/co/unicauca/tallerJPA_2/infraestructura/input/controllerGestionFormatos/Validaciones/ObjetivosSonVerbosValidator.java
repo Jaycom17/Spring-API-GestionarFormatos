@@ -2,8 +2,10 @@ package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionForma
 
 import java.util.List;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+
 
 public class ObjetivosSonVerbosValidator implements ConstraintValidator<ObjetivosSonVerbosValidatorInt, List<String>>{
 

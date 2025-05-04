@@ -1,6 +1,6 @@
 package edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.controladores;
 
-import javax.validation.Valid;
+
 
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +10,7 @@ import edu.co.unicauca.tallerJPA_2.aplicacion.input.GestionarObservacionCUIntPor
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Observacion;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.ObservacionDTOPeticion;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.ObservacionDTORespuesta;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;

@@ -13,4 +13,5 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class FormatotiADTORespuesta extends FormatoADTORespuesta{
     private String nombreEstudiante2;
+    private String codigoEstudiante2;
 }

@@ -28,6 +28,8 @@ public class GestionarFormatosACUAdapter implements GestionarFormatoACUIntPort {
 
         FormatoA objRetornarFormatoA = null;
 
+        System.out.println("Creando Formato A: " + objFormatoA.getObjetivosEspecificos());
+
         if (objGestionarFormatoAGateway.existeFormatoPorTitulo(objFormatoA.getTitulo())) {
             this.objFormatoResultados.retornarRespuestaErrorEntidadExiste(
                     "Error, ya existe un formato con el titulo: " + objFormatoA.getTitulo());

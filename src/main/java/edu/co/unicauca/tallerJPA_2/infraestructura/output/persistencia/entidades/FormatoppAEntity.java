@@ -20,8 +20,8 @@ public class FormatoppAEntity extends FormatoAEntity {
         super();
     }
 
-    public FormatoppAEntity(String titulo, String objetivoGeneral, String objetivosEspecifico, String nombreEstudiante1, String nombreAsesor, String rutaCartaAceptacion) {
-        super(titulo, objetivoGeneral, objetivosEspecifico, nombreEstudiante1);
+    public FormatoppAEntity(String titulo, String objetivoGeneral, String objetivosEspecifico, String nombreEstudiante1, String codigoEstudiante1,String nombreAsesor, String rutaCartaAceptacion) {
+        super(titulo, objetivoGeneral, objetivosEspecifico, nombreEstudiante1, codigoEstudiante1);
         this.nombreAsesor = nombreAsesor;
         this.rutaCartaAceptacion = rutaCartaAceptacion;
     }

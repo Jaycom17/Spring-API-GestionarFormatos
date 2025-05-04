@@ -9,14 +9,12 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-
-
-@Documented
-@Constraint(validatedBy = ObjetivosSonVerbosValidator.class)
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ObjetivosSonVerbosValidatorInt {
-    String message() default "Los objetivos deben empezar por un verbo en infinitivo";
+@Constraint(validatedBy = DocenteDTOPeticionValidator.class)
+@Documented
+public @interface ValidDocenteDTOPeticion {
+    String message() default "Debe enviar solo el ID o todos los demás campos, pero no ambos a la vez.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

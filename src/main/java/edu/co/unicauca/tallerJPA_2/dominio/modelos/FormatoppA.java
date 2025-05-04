@@ -13,8 +13,8 @@ public class FormatoppA extends FormatoA {
         super();
     }
 
-    public FormatoppA(String titulo, String objetivoGeneral, String objetivosEspecifico, String nombreEstudiante1, String nombreAsesor, String rutaCartaAceptacion) {
-        super(titulo, objetivoGeneral, objetivosEspecifico, nombreEstudiante1);
+    public FormatoppA(String titulo, String objetivoGeneral, String objetivosEspecifico, String nombreEstudiante1, String nombreAsesor, String rutaCartaAceptacion, String codigoEstudiante1) {
+        super(titulo, objetivoGeneral, objetivosEspecifico, nombreEstudiante1, codigoEstudiante1);
         this.nombreAsesor = nombreAsesor;
         this.rutaCartaAceptacion = rutaCartaAceptacion;
     }

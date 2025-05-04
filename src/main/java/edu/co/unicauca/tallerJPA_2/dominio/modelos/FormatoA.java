@@ -15,6 +15,7 @@ public abstract class FormatoA {
     private String objetivoGeneral;
     private String objetivosEspecificos;
     private String nombreEstudiante1;
+    private String codigoEstudiante1;
     private Date fechaCreacion;
 
     private Docente objDocente;
@@ -22,11 +23,12 @@ public abstract class FormatoA {
     private List<Evaluacion> evaluaciones;
     
 
-    public FormatoA(String titulo, String objetivo_general, String objetivos_especifico, String nombre_estudiante1) {
+    public FormatoA(String titulo, String objetivo_general, String objetivos_especifico, String nombre_estudiante1, String codigo_estudiante1) {
         this.titulo = titulo;
         this.objetivoGeneral = objetivo_general;
         this.objetivosEspecificos = objetivos_especifico;
         this.nombreEstudiante1 = nombre_estudiante1;
+        this.codigoEstudiante1 = codigo_estudiante1;
         this.evaluaciones = new ArrayList<Evaluacion>();
     }
 }

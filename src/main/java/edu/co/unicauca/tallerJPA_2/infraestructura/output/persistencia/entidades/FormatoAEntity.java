@@ -39,6 +39,8 @@ public abstract class FormatoAEntity {
     private String objetivosEspecificos;
     @Column(name = "nombre_estudiante1", length = 100)
     private String nombreEstudiante1;
+    @Column(name = "codigo_estudiante1", length = 100)
+    private String codigoEstudiante1;
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
@@ -57,11 +59,12 @@ public abstract class FormatoAEntity {
     }
     
 
-    public FormatoAEntity(String titulo, String objetivo_general, String objetivos_especifico, String nombre_estudiante1) {
+    public FormatoAEntity(String titulo, String objetivo_general, String objetivos_especifico, String nombre_estudiante1, String codigo_estudiante1) {
         this.titulo = titulo;
         this.objetivoGeneral = objetivo_general;
         this.objetivosEspecificos = objetivos_especifico;
         this.nombreEstudiante1 = nombre_estudiante1;
+        this.codigoEstudiante1 = codigo_estudiante1;
         this.evaluaciones = new ArrayList<EvaluacionEntity>();
     }
 }

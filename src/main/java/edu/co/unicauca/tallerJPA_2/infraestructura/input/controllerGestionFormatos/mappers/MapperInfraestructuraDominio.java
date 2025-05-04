@@ -10,12 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Docente;
-import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoA;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatoppA;
+import edu.co.unicauca.tallerJPA_2.dominio.modelos.FormatotiA;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Historico;
 import edu.co.unicauca.tallerJPA_2.dominio.modelos.Observacion;
-import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.FormatoADTOPeticion;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.FormatoppADTOPeticion;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.FormatotiADTOPeticion;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTOPeticion.ObservacionDTOPeticion;
-import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatoADTORespuesta;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatoppADTORespuesta;
+import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.FormatotiADTORespuesta;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.HistoricoDTORespuesta;
 
 @Configuration
@@ -36,7 +39,7 @@ public class MapperInfraestructuraDominio {
             .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
             .setSkipNullEnabled(true);
 
-        modelMapper.typeMap(FormatoADTOPeticion.class, FormatoA.class)
+        modelMapper.typeMap(FormatotiADTOPeticion.class, FormatotiA.class)
             .addMappings(mapper -> {
 
                 mapper.using(ctx -> {
@@ -49,10 +52,26 @@ public class MapperInfraestructuraDominio {
                     return list.stream()
                             .collect(Collectors.joining(";"));
 
-                }).map(FormatoADTOPeticion::getObjetivosEspecificos, FormatoA::setObjetivosEspecificos);
+                }).map(FormatotiADTOPeticion::getObjetivosEspecificos, FormatotiA::setObjetivosEspecificos);
             });
 
-        modelMapper.typeMap(FormatoA.class, FormatoADTORespuesta.class).addMappings(mapper -> {
+            modelMapper.typeMap(FormatoppADTOPeticion.class, FormatoppA.class)
+            .addMappings(mapper -> {
+
+                mapper.using(ctx -> {
+                    List<String> list = (List<String>) ctx.getSource();
+                    if (list == null) {
+                        return null;
+                    }
+
+                    // Convertir la lista de cadenas a una cadena separada por ;
+                    return list.stream()
+                            .collect(Collectors.joining(";"));
+
+                }).map(FormatoppADTOPeticion::getObjetivosEspecificos, FormatoppA::setObjetivosEspecificos);
+            });
+
+        modelMapper.typeMap(FormatotiA.class, FormatotiADTORespuesta.class).addMappings(mapper -> {
             mapper.using(ctx -> {
                 String list = (String) ctx.getSource();
                 if (list == null) {
@@ -61,7 +80,19 @@ public class MapperInfraestructuraDominio {
 
                 // Convertir la cadena separada por ; a una lista de cadenas
                 return List.of(list.split(";"));
-            }).map(FormatoA::getObjetivosEspecificos, FormatoADTORespuesta::setObjetivosEspecificos);
+            }).map(FormatotiA::getObjetivosEspecificos, FormatotiADTORespuesta::setObjetivosEspecificos);
+        });
+        
+        modelMapper.typeMap(FormatoppA.class, FormatoppADTORespuesta.class).addMappings(mapper -> {
+            mapper.using(ctx -> {
+                String list = (String) ctx.getSource();
+                if (list == null) {
+                    return null;
+                }
+
+                // Convertir la cadena separada por ; a una lista de cadenas
+                return List.of(list.split(";"));
+            }).map(FormatoppA::getObjetivosEspecificos, FormatoppADTORespuesta::setObjetivosEspecificos);
         });
 
         return modelMapper;
