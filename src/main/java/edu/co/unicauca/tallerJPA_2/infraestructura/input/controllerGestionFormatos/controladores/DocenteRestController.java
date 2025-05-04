@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.co.unicauca.tallerJPA_2.aplicacion.input.GestionarDocenteCUIntPort;
 import edu.co.unicauca.tallerJPA_2.infraestructura.input.controllerGestionFormatos.DTORespuesta.DocenteDTORespuesta;
+import io.micrometer.common.lang.NonNull;
 
 import java.util.List;
 
@@ -12,11 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/docentes")
+@Validated
 public class DocenteRestController {
     private final GestionarDocenteCUIntPort objGestionarDocenteCUIntPort;
     private final ModelMapper objMapeador;
@@ -29,7 +32,7 @@ public class DocenteRestController {
 
     @GetMapping("/docentesPorGrupo")
     public ResponseEntity<List<DocenteDTORespuesta>> listarDocentesPorGrupo(
-            @RequestParam String nombreGrupo,
+            @NonNull @RequestParam String nombreGrupo,
             @RequestParam String patronBusqueda) {
         List<DocenteDTORespuesta> respuesta = objMapeador.map(
                 objGestionarDocenteCUIntPort.listarDocentesPorGrupoPatron(nombreGrupo, patronBusqueda),

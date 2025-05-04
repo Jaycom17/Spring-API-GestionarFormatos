@@ -43,6 +43,8 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
 
         List<DocenteEntity> listaDocentesEntity = objDocenteRepository.findByNombreGrupoAndApellidosDocenteStartingWithIgnoreCase(nombreGrupo, patronBusqueda);
 
+        System.out.println("\t//-----------------\n\t\t Listar Docentes por Grupo Patron (Previo a realizar el mapeo) \n\t//-----------------");
+
         List<Docente> listaObtenida = this.docenteModelMapper.map(listaDocentesEntity, new TypeToken<List<Docente>>() {}.getType());
         
         return listaObtenida;
@@ -54,6 +56,8 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
         DocenteEntity docenteEntity = objDocenteRepository.findById(idDocente).orElse(null);
 
         Docente objDocente = null;
+
+        System.out.println("\t//-----------------\n\t\t Obtener Docente por ID (Previo a realizar el mapeo) \n\t//-----------------");
 
         if(docenteEntity != null){
             objDocente = docenteModelMapper.map(docenteEntity, Docente.class);

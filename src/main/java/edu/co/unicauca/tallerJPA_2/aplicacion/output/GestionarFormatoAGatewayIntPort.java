@@ -10,5 +10,6 @@ public interface GestionarFormatoAGatewayIntPort {
     public boolean existeFormatoPorTitulo(String titulo);
     public List<FormatoA> listarPorDocente(Integer idDocente);
     public List<FormatoA> listarPorTituloEntreFechas(String titulo, Date fechaInicio, Date fechaFin);
+    public List<FormatoA> listarPorDocenteYFechas(Integer idDocente, Date fechaInicio, Date fechaFin);
     public boolean existeFormatoPorId(Integer idFormatoA);
 }
